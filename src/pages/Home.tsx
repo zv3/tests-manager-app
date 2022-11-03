@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { TestPlan, TestSuite } from '../models/TestSuite';
 import { useContext } from 'react';
+import { TestPlan, TestSuite } from '../models/TestSuite';
 import ChevronUp from '../assets/chevron-up.svg';
 import AppContext from '../appContext';
 
@@ -33,7 +33,7 @@ const SuitePlans = ({ plans }: SuitePlansProps) => {
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 mx-9">
         <tbody>
           {plans.map((plan) => (
-            <PlanRow plan={plan} />
+            <PlanRow key={plan.name} plan={plan} />
           ))}
         </tbody>
       </table>
@@ -54,7 +54,7 @@ const SuiteRow = ({ suite, expanded }: SuiteRowProps) => {
       ...currentValue,
       [suite.id]: !currentValue[suite.id],
     }));
-  }
+  };
 
   return (
     <>
@@ -63,9 +63,11 @@ const SuiteRow = ({ suite, expanded }: SuiteRowProps) => {
           scope="row"
           className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-left flex items-center flex-row"
         >
-          {suite.plans.length && <button type="button" onClick={onClickDetailToggle}>
-            <img src={ChevronUp} className={`mr-3 w-3 h-3 ${!expanded ? 'rotate-180' : ''}`} />
-          </button>}
+          {suite.plans.length && (
+            <button type="button" onClick={onClickDetailToggle}>
+              <img src={ChevronUp} className={`mr-3 w-3 h-3 ${!expanded ? 'rotate-180' : ''}`} />
+            </button>
+          )}
           {suite.name}
         </th>
         <td className="px-6 py-4 text-xs">{suite.plans.length} tests</td>
@@ -80,16 +82,18 @@ const SuiteRow = ({ suite, expanded }: SuiteRowProps) => {
           </Link>
         </td>
       </tr>
-      {expanded && <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 px-6">
-        <td colSpan={3}>
-          <SuitePlans plans={suite.plans} />
-        </td>
-      </tr>}
+      {expanded && (
+        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 px-6">
+          <td colSpan={3}>
+            <SuitePlans plans={suite.plans} />
+          </td>
+        </tr>
+      )}
     </>
   );
 };
 
-const HomePage = () => {
+const Home = () => {
   const context = useContext(AppContext);
   const isExpanded = (id: number) => context.expandedTestSuites[id];
 
@@ -98,7 +102,7 @@ const HomePage = () => {
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <tbody>
           {context.testSuites.map((suite) => (
-            <SuiteRow suite={suite} expanded={isExpanded(suite.id)}/>
+            <SuiteRow key={suite.id} suite={suite} expanded={isExpanded(suite.id)} />
           ))}
         </tbody>
       </table>
@@ -106,4 +110,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home;

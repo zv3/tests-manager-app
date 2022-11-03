@@ -13,7 +13,7 @@ const defaultContext = {
   setTestSuites: () => {},
   expandedTestSuites: {},
   setExpandedTestSuites: () => {},
-}
+};
 
 const AppContext = createContext<Context>(defaultContext);
 
