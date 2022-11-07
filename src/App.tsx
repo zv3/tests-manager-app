@@ -46,7 +46,7 @@ function App() {
 
   return (
     <>
-      <ToastContainer position="bottom-right" autoClose="2500" />
+      <ToastContainer position="bottom-right" autoClose={2500} />
       <AppContext.Provider
         value={{ testSuites, setTestSuites, expandedTestSuites, setExpandedTestSuites }}
       >

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
-import { TestPlan, TestSuite } from '../models/TestSuite';
+import { TestSuite } from '../models/TestSuite';
+import { TestPlan } from '../models/TestPlan';
 import ChevronUp from '../assets/chevron-up.svg';
 import AppContext from '../appContext';
 
