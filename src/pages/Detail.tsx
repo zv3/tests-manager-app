@@ -2,6 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ChangeEvent, SyntheticEvent, useContext, useState } from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import { Label, TextInput, Button, Table } from 'flowbite-react';
+import { toast } from 'react-toastify';
 import ChevronUp from '../assets/chevron-up.svg';
 import AppContext from '../appContext';
 import { TestSuite } from '../models/TestSuite';
@@ -27,7 +28,9 @@ const Detail = () => {
   const { testSuites, setTestSuites } = useContext(AppContext);
   const params = useParams<SuiteDetailPageParams>();
   const navigate = useNavigate();
-  const [planDialogModel, setPlanDialogModel] = useState<PlanDialogModel>(getDummyPlanDialogModel());
+  const [planDialogModel, setPlanDialogModel] = useState<PlanDialogModel>(
+    getDummyPlanDialogModel()
+  );
 
   if (!params.suiteId) {
     throw Error("Missing 'suiteId' parameter!");
@@ -67,6 +70,7 @@ const Detail = () => {
       return entry;
     });
 
+    toast.success('Successfully edited test suite!');
     setTestSuites(nextTestSuites);
     navigateBack();
   };
@@ -82,11 +86,11 @@ const Detail = () => {
   };
 
   const onClickRemovePlanButton = (index: number) => {
-    const nextPlans = [ ...model.plans];
+    const nextPlans = [...model.plans];
 
     nextPlans.splice(index, 1);
 
-    setModel({ ...model, plans: nextPlans});
+    setModel({ ...model, plans: nextPlans });
   };
 
   const onSubmitDialog = (plan: TestPlan) => {
@@ -100,12 +104,12 @@ const Detail = () => {
     }
 
     setModel({ ...model, plans: nextPlans });
-    setPlanDialogModel({ isVisible: false })
+    setPlanDialogModel({ isVisible: false });
   };
 
   const onCloseDialog = () => {
     setPlanDialogModel({ isVisible: false });
-  }
+  };
 
   return (
     <div>
@@ -156,7 +160,11 @@ const Detail = () => {
                         <Button type="button" onClick={() => onClickEditPlanButton(index)}>
                           Edit
                         </Button>
-                        <Button color="failure" type="button" onClick={() => onClickRemovePlanButton(index)}>
+                        <Button
+                          color="failure"
+                          type="button"
+                          onClick={() => onClickRemovePlanButton(index)}
+                        >
                           Remove
                         </Button>
                       </div>

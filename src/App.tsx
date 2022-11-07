@@ -5,6 +5,7 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { ToastContainer } from 'react-toastify';
 import Home from './pages/Home';
 import Detail from './pages/Detail';
 import APIClient from './api/client';
@@ -12,6 +13,7 @@ import AppContext from './appContext';
 import { TestSuite } from './models/TestSuite';
 import Error from './pages/Error';
 import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -43,15 +45,18 @@ function App() {
   }
 
   return (
-    <AppContext.Provider
-      value={{ testSuites, setTestSuites, expandedTestSuites, setExpandedTestSuites }}
-    >
-      <div className="App">
-        <div className="container mx-w-full h-full m-auto">
-          <RouterProvider router={router} />
+    <>
+      <ToastContainer position="bottom-right" autoClose="2500" />
+      <AppContext.Provider
+        value={{ testSuites, setTestSuites, expandedTestSuites, setExpandedTestSuites }}
+      >
+        <div className="App">
+          <div className="container mx-w-full h-full m-auto">
+            <RouterProvider router={router} />
+          </div>
         </div>
-      </div>
-    </AppContext.Provider>
+      </AppContext.Provider>
+    </>
   );
 }
 

@@ -27,7 +27,7 @@ const PlanFormDialog = ({ plan, onClose, onSubmit }: PlanFormDialogProps) => {
     event.preventDefault();
 
     onSubmit(model);
-  }
+  };
 
   return (
     <div>
@@ -65,7 +65,9 @@ const PlanFormDialog = ({ plan, onClose, onSubmit }: PlanFormDialogProps) => {
             </div>
 
             <div className="mt-8 flex justify-end gap-2">
-              <Button color="gray" type="button" onClick={() => onClose()}>Cancel</Button>
+              <Button color="gray" type="button" onClick={() => onClose()}>
+                Cancel
+              </Button>
               <Button type="submit">Submit</Button>
             </div>
           </form>
